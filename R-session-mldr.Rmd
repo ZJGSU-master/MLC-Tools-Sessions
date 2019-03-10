@@ -1,0 +1,94 @@
+---
+title: "R Session - mldr Package"
+output:
+  html_document:
+    df_print: paged
+---
+
+This notebook shows how to use the `mldr` package to load multi-label datasets, perform exploratory data analisys tasks, etc. You can run the code by yourself by loading this file from RStudio.
+
+## Installing and loading the package
+```{r}
+
+```
+
+`mldr` is available at CRAN, so you can install as any other R package through the `install.packages()` function. Development version is available in GitHub.
+
+```{r}
+# install.packages("mldr")                   # Uncomment this line if you need to install the package from CRAN
+# remotes::install_github("fcharte/mldr")    # Uncomment this line if you want to install the latest version (in development) from GitHub
+
+library(mldr)
+```
+
+## Loading a multi-label dataset and exploring it
+
+```{r}
+emotions <- mldr("emotions")
+summary(emotions)  # A summary of metrics
+emotions$labels    # Details about the labels in emotions
+emotions$labelsets # Details about the labelsets
+```
+
+
+## Obtaining citation info for the dataset
+```{r}
+emotions$bibtex
+```
+
+
+## Generate some plots from the dataset
+
+```{r}
+# Label concurrence plot
+plot(genbase, type = "LC") # Plots all labels
+plot(genbase) # Same as above
+plot(genbase, title = "genbase dataset", color.function = heat.colors) # Changes the title and color
+plot(genbase, labelCount = 10) # Randomly selects 10 labels to plot
+plot(genbase, labelIndices = genbase$labels$index[1:10]) # Plots info of first 10 labels
+
+# Label bar plot
+plot(emotions, type = "LB", col = terrain.colors(emotions$measures$num.labels))
+
+# Label histogram plot
+plot(emotions, type = "LH")
+
+# Cardinality histogram plot
+plot(emotions, type = "CH")
+
+# Attributes by type
+plot(emotions, type = "AT", cex = 0.85)
+
+# Labelset histogram
+plot(emotions, type = "LSH")
+```
+
+## Obtain a label concurrence report
+
+```{r}
+concurrenceReport(emotions)  # Details about label concurrence
+```
+
+## Evaluate a set of artificial  predictions
+
+```{r}
+# Get the true labels in emotions
+predictions <- as.matrix(emotions$dataset[, emotions$labels$index])
+# and introduce some noise (alternatively get the predictions from some classifier)
+noised_labels <- cbind(sample(1:593, 200, replace = TRUE), sample(1:6, 200, replace = TRUE))
+predictions[noised_labels] <- sample(0:1, 100, replace = TRUE)
+# then evaluate predictive performance
+res <- mldr_evaluate(emotions, predictions)
+str(res)
+plot(res$roc, main = "ROC curve for emotions")
+```
+
+## Interactive user interface
+```{r}
+if (interactive()) {
+  mldrGUI() # Call this function to open the interactive GUI of the mldr package
+  help(package = "mldr") # Opens the index of help topics for mldr
+  browseVignettes(package = "mldr") # Opens the vignettes with a broader description of the package
+}
+```
+
