@@ -1,9 +1,7 @@
 ---
 title: "R Session - mldr Package"
 output:
-  pdf_document: default
-  html_document:
-    df_print: paged
+  html_document: default
 ---
 
 This notebook shows how to use the `mldr` package to load multi-label datasets, perform exploratory data analisys tasks, etc. You can run the code by yourself by loading this file from RStudio.
