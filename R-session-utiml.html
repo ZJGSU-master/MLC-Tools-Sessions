@@ -193,7 +193,7 @@ $(document).ready(function () {
 <h2>Installing and loading the package</h2>
 <p><code>utiml</code> is available at CRAN, so you can install as any other R package through the <code>install.packages()</code> function. Development version is available in GitHub.</p>
 <pre class="r"><code># install.packages(&quot;utiml&quot;)                   # Uncomment this line if you need to install the package from CRAN
-# remotes::install_github(&quot;&quot;rivolli/utiml&quot;&quot;)    # Uncomment this line if you want to install the latest version (in development) from GitHub
+# remotes::install_github(&quot;rivolli/utiml&quot;)    # Uncomment this line if you want to install the latest version (in development) from GitHub
 
 library(utiml)</code></pre>
 <pre><code>## Loading required package: mldr</code></pre>
@@ -227,10 +227,10 @@ measures &lt;- c(&quot;hamming-loss&quot;, &quot;F1&quot;, &quot;accuracy&quot;)
 
 multilabel_evaluate(partitions$test, predict1, measures)</code></pre>
 <pre><code>##     accuracy           F1 hamming-loss 
-##    0.5838015    0.6672285    0.1938202</code></pre>
+##    0.5936330    0.6657303    0.1872659</code></pre>
 <pre class="r"><code>multilabel_evaluate(partitions$test, predict2, measures)</code></pre>
 <pre><code>##     accuracy           F1 hamming-loss 
-##    0.4030899    0.4717228    0.2631086</code></pre>
+##    0.3960674    0.4825843    0.2593633</code></pre>
 </div>
 
 

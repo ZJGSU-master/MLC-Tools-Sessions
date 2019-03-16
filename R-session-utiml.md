@@ -10,7 +10,7 @@ Installing and loading the package
 
 ``` r
 # install.packages("utiml")                   # Uncomment this line if you need to install the package from CRAN
-# remotes::install_github(""rivolli/utiml"")    # Uncomment this line if you want to install the latest version (in development) from GitHub
+# remotes::install_github("rivolli/utiml")    # Uncomment this line if you want to install the latest version (in development) from GitHub
 
 library(utiml)
 ```
@@ -61,11 +61,11 @@ multilabel_evaluate(partitions$test, predict1, measures)
 ```
 
     ##     accuracy           F1 hamming-loss 
-    ##    0.5838015    0.6672285    0.1938202
+    ##    0.5936330    0.6657303    0.1872659
 
 ``` r
 multilabel_evaluate(partitions$test, predict2, measures)
 ```
 
     ##     accuracy           F1 hamming-loss 
-    ##    0.4030899    0.4717228    0.2631086
+    ##    0.3960674    0.4825843    0.2593633
