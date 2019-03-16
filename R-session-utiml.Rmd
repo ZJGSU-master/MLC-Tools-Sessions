@@ -12,7 +12,7 @@ This notebook shows how to use the `utiml` package to train and evaluate a coupl
 
 ```{r warning=FALSE}
 # install.packages("utiml")                   # Uncomment this line if you need to install the package from CRAN
-# remotes::install_github(""rivolli/utiml"")    # Uncomment this line if you want to install the latest version (in development) from GitHub
+# remotes::install_github("rivolli/utiml")    # Uncomment this line if you want to install the latest version (in development) from GitHub
 
 library(utiml)
 ```
