@@ -1,0 +1,46 @@
+---
+title: "R Session - utiml Package"
+output:
+  html_document: default
+---
+
+This notebook shows how to use the `utiml` package to train and evaluate a couple of multi-label datasets. You can run the code by yourself by loading this file from RStudio.
+
+## Installing and loading the package
+
+`utiml` is available at CRAN, so you can install as any other R package through the `install.packages()` function. Development version is available in GitHub.
+
+```{r warning=FALSE}
+# install.packages("utiml")                   # Uncomment this line if you need to install the package from CRAN
+# remotes::install_github(""rivolli/utiml"")    # Uncomment this line if you want to install the latest version (in development) from GitHub
+
+library(utiml)
+```
+## Prepare the data
+
+```{r}
+partitions <- create_holdout_partition(mldr::emotions, c(train = 0.7, test = 0.3))
+```
+## Train two classifiers
+
+```{r}
+# install.packages("e1071")  # Uncomment this line to install the needed package to run SVM as base classifier for ECC
+
+# Test one adaptation-based algorithm and one transformation-based
+class1 <- ecc(partitions$train)
+class2 <- mlknn(partitions$train)
+
+```
+
+## Test and evaluate the classifiers
+
+```{r}
+predict1 <- predict(class1, partitions$test)
+predict2 <- predict(class2, partitions$test)
+
+measures <- c("hamming-loss", "F1", "accuracy")
+
+multilabel_evaluate(partitions$test, predict1, measures)
+multilabel_evaluate(partitions$test, predict2, measures)
+
+```
