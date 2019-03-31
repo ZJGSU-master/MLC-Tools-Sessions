@@ -10,6 +10,7 @@ from skmultilearn.problem_transform import BinaryRelevance
 from skmultilearn.adapt import MLkNN
 from sklearn.svm import SVC
 import sklearn.metrics as metrics
+import numpy as np
 ```
 
 ## See the available datasets in the scikit-multilearn repository
@@ -98,6 +99,27 @@ labels
 
 
 ```python
+labelfreqs = emotions_Y.sum(axis=0)
+print("Label frequencies: ", labelfreqs)
+print("MeanIR: ", np.mean(labelfreqs.max() / labelfreqs))
+```
+
+    Label frequencies:  [[173 166 264 148 168 189]]
+    MeanIR:  1.4780684597524212
+    
+
+
+```python
+print("Card: ", emotions_Y.sum() / emotions_Y.shape[0])
+print("Dens: ", emotions_Y.sum() / emotions_Y.shape[0] / emotions_Y.shape[1])
+```
+
+    Card:  1.8684654300168635
+    Dens:  0.3114109050028106
+    
+
+
+```python
 concurrence_builder = cluster.LabelCooccurrenceGraphBuilder(weighted=True, include_self_edges=False)
 concurrence = concurrence_builder.transform(emotions_Y)
 print(concurrence)
@@ -168,4 +190,22 @@ print('Accuracy: ', metrics.accuracy_score(emotions_Y_test, prediction))
 
     Hamming loss:  0.30363036303630364
     Accuracy:  0.13366336633663367
+    
+
+
+```python
+print(metrics.classification_report(emotions_Y_test, prediction))
+```
+
+                 precision    recall  f1-score   support
+    
+              0       0.51      0.43      0.46        54
+              1       0.24      0.17      0.20        59
+              2       0.69      0.84      0.76        96
+              3       0.59      0.37      0.46        59
+              4       0.37      0.18      0.24        73
+              5       0.66      0.33      0.44        58
+    
+    avg / total       0.52      0.42      0.45       399
+    
     
